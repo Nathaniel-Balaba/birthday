@@ -6,7 +6,7 @@ onload = () => {
 
   const titleElement = document.getElementById('title');
   if (titleElement) {
-    const text = `HAPPY BIRTHDAY TYA`.split('')
+    const text = `TYA`.split('')
     titleElement.innerHTML = ''; // Clear existing text
     
     for (let index = 0; index < text.length; index++) {
