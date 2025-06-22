@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/gift.png" type="image/x-icon">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Document Title -->
+  <title>Happy Birthday Princess! 👑💖</title>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'dancing': ['Dancing Script', 'cursive'],
+            'playfair': ['Playfair Display', 'serif'],
+          },
+          animation: {
+            'spin-slow': 'spin 4s linear infinite',
+            'float': 'float 3s ease-in-out infinite',
+            'sparkle': 'sparkle 2s ease-in-out infinite',
+            'fadeIn': 'fadeIn 2s ease-in-out',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            sparkle: {
+              '0%, 100%': { opacity: '0.3', transform: 'scale(0.8)' },
+              '50%': { opacity: '1', transform: 'scale(1.2)' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .title span {
+      background: linear-gradient(45deg, #f472b6, #ec4899, #be185d, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 4px 6px rgba(236, 72, 153, 0.3));
+      transition: all 0.3s ease;
+    }
+    
+    .title span:hover {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.8));
+    }
+    
+    .floating-element {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+    }
+    
+    .btn {
+      background: linear-gradient(135deg, #f472b6, #ec4899, #be185d, #a855f7);
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 1.125rem;
+      box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 20px 40px rgba(236, 72, 153, 0.4);
+    }
+    
+    .audio-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .audio-container audio {
+      width: 200px;
+      height: 30px;
+    }
+    
+    .music-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 50;
+      background: linear-gradient(135deg, #f472b6, #ec4899);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+      transition: all 0.3s ease;
+    }
+    
+    .music-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-pink-200 via-rose-300 to-purple-400 overflow-hidden relative">
+  
+  <!-- Music Toggle Button -->
+  <button class="music-toggle" onclick="toggleMusic()" id="musicToggle">
+    🎵
+  </button>
+  
+  <!-- Hidden Audio Element -->
+  <audio id="birthdayMusic" loop autoplay>
+    <source src="assets/birthday.mp3" type="audio/mpeg">
+    <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+    Your browser does not support the audio element.
+  </audio>
+  
+  <!-- Background Decorative Elements -->
+  <div class="absolute inset-0 bg-gradient-to-t from-pink-100/30 via-transparent to-purple-200/20"></div>
+  
+  <!-- Floating Hearts -->
+  <div class="floating-element text-2xl animate-bounce opacity-60" style="left: 10%; top: 20%; animation-delay: 0s;">💖</div>
+  <div class="floating-element text-xl animate-pulse opacity-50" style="left: 85%; top: 15%; animation-delay: 1s;">💕</div>
+  <div class="floating-element text-2xl animate-bounce opacity-60" style="left: 15%; top: 70%; animation-delay: 2s;">💖</div>
+  <div class="floating-element text-lg animate-pulse opacity-50" style="left: 80%; top: 75%; animation-delay: 0.5s;">💕</div>
+  <div class="floating-element text-xl animate-bounce opacity-60" style="left: 50%; top: 10%; animation-delay: 1.5s;">💖</div>
+  
+  <!-- Floating Butterflies -->
+  <div class="floating-element text-2xl animate-float opacity-70" style="left: 20%; top: 30%; animation-delay: 0s;">🦋</div>
+  <div class="floating-element text-xl animate-float opacity-60" style="left: 75%; top: 40%; animation-delay: 2s;">🦋</div>
+  <div class="floating-element text-2xl animate-float opacity-70" style="left: 30%; top: 80%; animation-delay: 1s;">🦋</div>
+  <div class="floating-element text-lg animate-float opacity-60" style="left: 70%; top: 25%; animation-delay: 3s;">🦋</div>
+  
+  <!-- Floating Flowers -->
+  <div class="floating-element text-xl animate-pulse opacity-50" style="left: 5%; top: 50%; animation-delay: 0s;">🌸</div>
+  <div class="floating-element text-lg animate-pulse opacity-40" style="left: 90%; top: 60%; animation-delay: 1s;">🌺</div>
+  <div class="floating-element text-xl animate-pulse opacity-50" style="left: 25%; top: 90%; animation-delay: 2s;">🌸</div>
+  <div class="floating-element text-lg animate-pulse opacity-40" style="left: 60%; top: 5%; animation-delay: 1.5s;">🌺</div>
+  
+  <!-- Sparkles -->
+  <div class="floating-element w-2 h-2 bg-pink-300 rounded-full animate-sparkle" style="left: 30%; top: 25%;"></div>
+  <div class="floating-element w-1 h-1 bg-purple-300 rounded-full animate-sparkle" style="left: 70%; top: 35%; animation-delay: 1s;"></div>
+  <div class="floating-element w-2 h-2 bg-rose-300 rounded-full animate-sparkle" style="left: 40%; top: 60%; animation-delay: 2s;"></div>
+  <div class="floating-element w-1 h-1 bg-pink-400 rounded-full animate-sparkle" style="left: 80%; top: 80%; animation-delay: 0.5s;"></div>
+  
+  <!-- Corner Decorations -->
+  <div class="absolute top-4 left-4 text-3xl animate-bounce opacity-70" style="animation-delay: 2s;">🌸</div>
+  <div class="absolute top-4 right-4 text-3xl animate-bounce opacity-70" style="animation-delay: 1s;">🌹</div>
+  <div class="absolute bottom-4 left-4 text-3xl animate-bounce opacity-70" style="animation-delay: 2s;">💖</div>
+  <div class="absolute bottom-4 right-4 text-3xl animate-bounce opacity-70" style="animation-delay: 0.5s;">🌹</div>
+
+  <!-- Main Content -->
+  <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+    
+    <!-- Crown -->
+    <div class="mb-8 text-6xl animate-bounce animate-fadeIn">👑</div>
+    
+    <!-- Title -->
+    <h1 class="title text-4xl md:text-6xl lg:text-8xl font-bold text-center mb-8 font-dancing animate-fadeIn"></h1>
+    
+    <!-- Decorative Elements -->
+    <div class="flex items-center justify-center space-x-8 mb-12 animate-fadeIn" style="animation-delay: 0.5s;">
+      <div class="relative">
+        <div class="w-20 h-20 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full animate-spin-slow flex items-center justify-center shadow-lg">
+          <span class="text-3xl">🌹</span>
+        </div>
+        <div class="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-yellow-300 to-pink-300 rounded-full animate-ping flex items-center justify-center">
+          <span class="text-xs">✨</span>
+        </div>
+      </div>
+      
+      <div class="relative">
+        <div class="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-pulse flex items-center justify-center shadow-lg">
+          <span class="text-2xl">🎂</span>
+        </div>
+        <div class="absolute -top-1 -left-1 w-4 h-4 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full animate-bounce flex items-center justify-center">
+          <span class="text-xs">💫</span>
+        </div>
+      </div>
+      
+      <div class="relative">
+        <div class="w-20 h-20 bg-gradient-to-r from-rose-400 to-purple-400 rounded-full animate-spin-slow flex items-center justify-center shadow-lg">
+          <span class="text-3xl">🎁</span>
+        </div>
+        <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-gradient-to-r from-pink-300 to-rose-300 rounded-full animate-ping flex items-center justify-center">
+          <span class="text-xs">💖</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="mb-8 animate-fadeIn" style="animation-delay: 1s;">
+      <a href="flower.html" class="btn">
+        <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" class="sparkle transition-transform duration-500 hover:animate-spin">
+          <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+        </svg>
+        <span>Open Your Surprise</span>
+        <span>🎀</span>
+      </a>
+    </div>
+    
+    <!-- Sweet Messages -->
+    <div class="text-center animate-fadeIn" style="animation-delay: 1.5s;">
+      <p class="text-white/90 text-xl md:text-2xl font-light max-w-lg leading-relaxed font-dancing mb-2">
+        ✨ You're absolutely magical ✨
+      </p>
+      <p class="text-white/80 text-lg md:text-xl font-light font-playfair">
+        🌸 Make a wish, beautiful! 🌸
+      </p>
+    </div>
+    
+    <!-- Decorative Flowers at Bottom -->
+    <div class="mt-8 flex space-x-4 text-2xl animate-pulse animate-fadeIn" style="animation-delay: 2s;">
+      <span>🌺</span>
+      <span>🌸</span>
+      <span>🌼</span>
+      <span>🌻</span>
+      <span>🌷</span>
+    </div>
+  </div>
+
+  <!-- Bottom Dreamy Overlay -->
+  <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-pink-200/40 via-rose-200/20 to-transparent"></div>
+
+  <script>
+    const title = document.querySelector('.title')
+    const text = `Happy Birthday Princess!`.split('')
+    let musicPlaying = false;
+    const audio = document.getElementById('birthdayMusic');
+    const musicToggle = document.getElementById('musicToggle');
+
+    // Create container for better responsive layout
+    title.style.display = 'flex'
+    title.style.flexWrap = 'wrap'
+    title.style.justifyContent = 'center'
+    title.style.gap = '0.5rem'
+
+    for (let index = 0; index < text.length; index++) {
+      if (text[index] !== ' ') {
+        const span = document.createElement('span')
+        span.textContent = text[index]
+        span.style.animationDelay = `${Math.random() * 3}s`
+        span.style.animationDuration = '2.5s'
+        span.classList.add('inline-block', 'animate-bounce', 'cursor-pointer')
+        title.appendChild(span)
+      } else {
+        const span = document.createElement('span')
+        span.style.width = '1rem'
+        span.classList.add('inline-block')
+        title.appendChild(span)
+      }
+    }
+
+    // Music control function
+    function toggleMusic() {
+      if (musicPlaying) {
+        audio.pause();
+        musicToggle.textContent = '🎵';
+        musicToggle.style.opacity = '0.7';
+        musicPlaying = false;
+      } else {
+        audio.play().catch(e => {
+          console.log('Audio autoplay prevented by browser:', e);
+          // Show a message to user if needed
+        });
+        musicToggle.textContent = '🎶';
+        musicToggle.style.opacity = '1';
+        musicPlaying = true;
+      }
+    }
+
+    // Try to autoplay music when page loads
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        audio.play().then(() => {
+          musicPlaying = true;
+          musicToggle.textContent = '🎶';
+          musicToggle.style.opacity = '1';
+        }).catch(e => {
+          console.log('Autoplay prevented by browser policy');
+          // Music will need to be started by user interaction
+        });
+      }, 1000);
+    });
+
+    // Add click anywhere to start music (fallback for autoplay restrictions)
+    document.addEventListener('click', function startMusic() {
+      if (!musicPlaying) {
+        audio.play().then(() => {
+          musicPlaying = true;
+          musicToggle.textContent = '🎶';
+          musicToggle.style.opacity = '1';
+        }).catch(e => {
+          console.log('Could not play audio:', e);
+        });
+      }
+      // Remove this listener after first click
+      document.removeEventListener('click', startMusic);
+    }, { once: true });
+
+    // Add more floating elements dynamically
+    function createFloatingElement(emoji, className) {
+      const element = document.createElement('div')
+      element.textContent = emoji
+      element.className = `floating-element ${className}`
+      element.style.left = Math.random() * 100 + '%'
+      element.style.top = Math.random() * 100 + '%'
+      element.style.animationDelay = Math.random() * 4 + 's'
+      element.style.fontSize = (12 + Math.random() * 8) + 'px'
+      document.body.appendChild(element)
+    }
+
+    // Add more hearts
+    for (let i = 0; i < 15; i++) {
+      createFloatingElement('💖', 'animate-pulse opacity-40')
+    }
+
+    // Add more butterflies
+    for (let i = 0; i < 8; i++) {
+      createFloatingElement('🦋', 'animate-float opacity-50')
+    }
+
+    // Add more flowers
+    for (let i = 0; i < 12; i++) {
+      const flowers = ['🌸', '🌺', '🌼', '🌷', '🌻']
+      const randomFlower = flowers[Math.floor(Math.random() * flowers.length)]
+      createFloatingElement(randomFlower, 'animate-pulse opacity-30')
+    }
+  </script>
+</body>
+</html>
