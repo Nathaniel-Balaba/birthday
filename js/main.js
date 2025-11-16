@@ -6,7 +6,7 @@ onload = () => {
 
   const titleElement = document.getElementById('title');
   if (titleElement) {
-    const text = `TYA`.split('')
+    const text = `HBD🥳`.split('')
     titleElement.innerHTML = ''; // Clear existing text
     
     for (let index = 0; index < text.length; index++) {
